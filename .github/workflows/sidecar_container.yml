@@ -79,19 +79,18 @@ jobs:
           $connection.Close()
           $dataSet.Tables[0].Rows[0].ItemArray[0] | Out-File "./Tests/myTests/tSQLt-output.xml"
 
-      - name: Upload XML results file
+      - name: Save Test Report as Artifact
         uses: actions/upload-artifact@v3
         with:
           name: output-xml-file
           path: ./Tests/myTests/tSQLt-output.xml
 
-      - name: Publish Test Report
+      - name: Publish tSQLt Test Results
         uses: mikepenz/action-junit-report@v3
         if: always() # always run even if the previous step fails
         with:
           report_paths: './Tests/myTests/tSQLt-*.xml'
+          check_name: tSQLt Test Report
           include_passed: true
           detailed_summary: true
-
-   
-          
+          fail_on_failure: true
