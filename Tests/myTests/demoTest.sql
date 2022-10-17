@@ -178,4 +178,11 @@ END;
 GO
 
 ----------------------------------------------------------------------------
--- Example 7 - Replace check constraint with FK
+-- Example 7 -- Simulate failure
+CREATE PROCEDURE testFinancialApp.[test simulate failed test]
+AS
+BEGIN
+    EXEC tSQLt.Fail 'This is an example of a failed test.';
+END;
+GO
+
