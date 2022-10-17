@@ -90,7 +90,7 @@ jobs:
           cat -v ./Tests/myTests/tSQLt-output.xml
 
       - name: Report tSQLt Test Results
-        uses: dorny/test-reporter@v1.6.0
+        uses: phoenix-actions/test-reporting@v8
         if: success() || failure()             # run this step even if previous step failed
         with:
           name: tSQLt Tests                    # Name of the check run which will be created
