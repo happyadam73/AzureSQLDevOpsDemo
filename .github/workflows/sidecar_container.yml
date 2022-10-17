@@ -79,6 +79,12 @@ jobs:
           $connection.Close()
           $dataSet.Tables[0].Rows[0].ItemArray[0] | Out-File "./Tests/myTests/tSQLt-output.xml"
 
+      - name: Upload XML results file
+        uses: actions/upload-artifact@v3
+        with:
+          name: output-xml-file
+          path: ./Tests/myTests/tSQLt-output.xml
+
       - name: 'Debug tSQLt JUnit Output'
         run: |
           cat -v ./Tests/myTests/tSQLt-output.xml
