@@ -188,7 +188,7 @@ GO
 
 ----------------------------------------------------------------------------
 -- Example 8 -- Simulate failure 2
-CREATE PROCEDURE testFinancialApp.[test simulate failed test]
+CREATE PROCEDURE testFinancialApp.[test simulate failed test 2]
 AS
 BEGIN
     EXEC tSQLt.AssertEquals 1, 0;
