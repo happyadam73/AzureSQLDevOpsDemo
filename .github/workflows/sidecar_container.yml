@@ -78,12 +78,7 @@ jobs:
 
           $connection.Close()
           $dataSet.Tables[0].Rows[0].ItemArray[0] | Out-File "./Tests/myTests/tSQLt-output.xml"
-                   
-      - name: 'Generate tSQLt JUnit Output'
-        run: |
-          sqlcmd -S localhost -U sa -d test123 -Q "EXEC tSQLt.XmlResultFormatter" -o "./Tests/myTests/tSQLt-output.xml"
-          cat -v ./Tests/myTests/tSQLt-output.xml
-      
+                        
       - name: Report tSQLt Test Results
         uses: dorny/test-reporter@v1.6.0
         if: success() || failure()             # run this step even if previous step failed
