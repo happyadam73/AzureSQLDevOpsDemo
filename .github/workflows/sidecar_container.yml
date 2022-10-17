@@ -65,3 +65,12 @@ jobs:
       - name: 'Generate tSQLt JUnit Output'
         run: |
           sqlcmd -S localhost -U sa -d test123 -Q "SET NOCOUNT ON;EXEC tSQLt.XmlResultFormatter;" -o "./Tests/myTests/tSQLt-output.xml"
+      
+      - name: Report tSQLt Test Results
+        uses: dorny/test-reporter@v1.6.0
+        if: success() || failure()             # run this step even if previous step failed
+        with:
+          name: tSQLt Tests                    # Name of the check run which will be created
+          path: ./Tests/myTests/tSQLt-*.xml    # Path to test results
+          reporter: java-junit                 # Format of test results          
+          
