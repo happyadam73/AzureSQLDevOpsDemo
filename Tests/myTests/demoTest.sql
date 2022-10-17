@@ -182,7 +182,15 @@ GO
 CREATE PROCEDURE testFinancialApp.[test simulate failed test]
 AS
 BEGIN
-    EXEC tSQLt.Fail 'This is an example of a failed test.';
+    EXEC tSQLt.Fail 'This is an example of a failed test message';
 END;
 GO
 
+----------------------------------------------------------------------------
+-- Example 8 -- Simulate failure 2
+CREATE PROCEDURE testFinancialApp.[test simulate failed test]
+AS
+BEGIN
+    EXEC tSQLt.AssertEquals 1, 0;
+END;
+GO
