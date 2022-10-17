@@ -64,7 +64,7 @@ jobs:
           
       - name: 'Generate tSQLt JUnit Output'
         run: |
-          sqlcmd -S localhost -U sa -d test123 -Q "SET NOCOUNT ON;EXEC tSQLt.XmlResultFormatter;" -o "./Tests/myTests/tSQLt-output.xml"
+          sqlcmd -S localhost -U sa -d test123 -Q "EXEC tSQLt.XmlResultFormatter;" -y 0 -o "./Tests/myTests/tSQLt-output.xml"
           cat -v ./Tests/myTests/tSQLt-output.xml
       
       - name: Report tSQLt Test Results
