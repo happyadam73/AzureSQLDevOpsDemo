@@ -62,7 +62,7 @@ jobs:
           connection-string: "Server=localhost;Initial Catalog=test123;User ID=sa;Password=P@ssw0rd;"  # the local connection string
           path: './Tests/myTests/demoExec.sql' # the tsqlt test command
           
-      - name: PowershellTest
+      - name: 'Generate tSQLt JUnit Output'
         shell: pwsh
         run: |
           $connectionString = "Server=localhost;Database=test123;User Id=sa;Password=P@ssw0rd;"
@@ -78,12 +78,16 @@ jobs:
 
           $connection.Close()
           $dataSet.Tables[0].Rows[0].ItemArray[0] | Out-File "./Tests/myTests/tSQLt-output.xml"
-                        
+
+      - name: 'Debug tSQLt JUnit Output'
+        run: |
+          cat -v ./Tests/myTests/tSQLt-output.xml
+
       - name: Report tSQLt Test Results
         uses: dorny/test-reporter@v1.6.0
         if: success() || failure()             # run this step even if previous step failed
         with:
           name: tSQLt Tests                    # Name of the check run which will be created
           path: ./Tests/myTests/tSQLt-*.xml    # Path to test results
-          reporter: jest-junit                 # Format of test results           
+          reporter: java-junit                 # Format of test results           
           
