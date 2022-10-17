@@ -1,4 +1,4 @@
-name: SQL container in pipeline
+name: Build and Test FinanceApp Database
 on:
   # push:
   #   branches:
