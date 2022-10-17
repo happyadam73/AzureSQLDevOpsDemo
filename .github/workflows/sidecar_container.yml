@@ -61,3 +61,8 @@ jobs:
         with:
           connection-string: "Server=localhost;Initial Catalog=test123;User ID=sa;Password=P@ssw0rd;"  # the local connection string
           path: './Tests/myTests/demoExec.sql' # the tsqlt test command
+          
+      - name: 'Generate tSQLt JUnit Output'
+        run: |
+          sqlcmd -S localhost -U sa -P P@ssw0rd -d test123 -Q "SET NOCOUNT ON;EXEC tSQLt.XmlResultFormatter;" -o "./Tests/myTests/tSQLt-output.xml"
+         
