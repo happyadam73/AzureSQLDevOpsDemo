@@ -62,6 +62,23 @@ jobs:
           connection-string: "Server=localhost;Initial Catalog=test123;User ID=sa;Password=P@ssw0rd;"  # the local connection string
           path: './Tests/myTests/demoExec.sql' # the tsqlt test command
           
+      - name: PowershellTest
+        shell: pwsh
+        run: |
+          $connectionString = "Server=localhost;Database=test123;User Id=sa;Password=P@ssw0rd;"
+          $sqlCommand = 'EXEC tSQLt.XmlResultFormatter'
+
+          $connection = new-object system.data.SqlClient.SQLConnection($connectionString)
+          $command = new-object system.data.sqlclient.sqlcommand($sqlCommand,$connection)
+          $connection.Open()
+
+          $adapter = New-Object System.Data.sqlclient.sqlDataAdapter $command
+          $dataset = New-Object System.Data.DataSet
+          $adapter.Fill($dataSet) | Out-Null
+
+          $connection.Close()
+          $dataSet.Tables[0].Rows[0].ItemArray[0] | Out-File "./Tests/myTests/tSQLt-output.xml"
+                   
       - name: 'Generate tSQLt JUnit Output'
         run: |
           sqlcmd -S localhost -U sa -d test123 -Q "EXEC tSQLt.XmlResultFormatter" -o "./Tests/myTests/tSQLt-output.xml"
